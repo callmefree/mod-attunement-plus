@@ -409,7 +409,8 @@ static void ApplyAttunementStats(Player* player, bool apply)
         for (int i = 0; i < 5; ++i)
         {
             if (it->second[i] > 0.0f)
-                player->ApplyStatBuffMod(AP_STATS[i], it->second[i], false);
+                player->HandleStatFlatModifier(static_cast<UnitMods>(UNIT_MOD_STAT_START + AP_STATS[i]), TOTAL_VALUE, it->second[i], false);
+        player->UpdateStatBuffMod(AP_STATS[i]);
         }
         if (it->second[5] > 0.0f)
         {
@@ -663,7 +664,8 @@ static void ApplyAttunementStats(Player* player, bool apply)
         float val = std::floor(newStats[i]);
         if (val > 0.0f)
         {
-            player->ApplyStatBuffMod(AP_STATS[i], val, true);
+            player->HandleStatFlatModifier(static_cast<UnitMods>(UNIT_MOD_STAT_START + AP_STATS[i]), TOTAL_VALUE, val, true);
+        player->UpdateStatBuffMod(AP_STATS[i]);
             cached[i] = val;
         }
     }
