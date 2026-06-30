@@ -414,13 +414,13 @@ static void ApplyAttunementStats(Player* player, bool apply)
         }
         if (it->second[5] > 0.0f)
         {
-            player->HandleStatModifier(UNIT_MOD_ARMOR, TOTAL_VALUE,it->second[5], false);
+            player->HandleStatFlatModifier(UNIT_MOD_ARMOR, TOTAL_VALUE,it->second[5], false);
             player->UpdateArmor();
         }
         if (it->second[6] > 0.0f)
         {
             float apBonus = std::floor(it->second[6] * 7.0f);
-            player->HandleStatModifier(UNIT_MOD_ATTACK_POWER, TOTAL_VALUE, apBonus, false);
+            player->HandleStatFlatModifier(UNIT_MOD_ATTACK_POWER, TOTAL_VALUE, apBonus, false);
         }
         g_appliedStats.erase(it);
     }
@@ -674,7 +674,7 @@ static void ApplyAttunementStats(Player* player, bool apply)
     float armorVal = std::floor(newStats[5]);
     if (armorVal > 0.0f)
     {
-        player->HandleStatModifier(UNIT_MOD_ARMOR, TOTAL_VALUE,armorVal, true);
+        player->HandleStatFlatModifier(UNIT_MOD_ARMOR, TOTAL_VALUE,armorVal, true);
         player->UpdateArmor();
         cached[5] = armorVal;
     }
@@ -684,7 +684,7 @@ static void ApplyAttunementStats(Player* player, bool apply)
     if (weaponDpsVal > 0.0f)
     {
         float apBonus = std::floor(weaponDpsVal * 7.0f);
-        player->HandleStatModifier(UNIT_MOD_ATTACK_POWER, TOTAL_VALUE, apBonus, true);
+        player->HandleStatFlatModifier(UNIT_MOD_ATTACK_POWER, TOTAL_VALUE, apBonus, true);
         player->UpdateAttackPowerAndDamage();
         cached[6] = weaponDpsVal;
     }
